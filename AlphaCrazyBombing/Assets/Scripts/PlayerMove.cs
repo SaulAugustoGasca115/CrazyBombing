@@ -21,6 +21,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         Movement();
+        GenerateLevelLimits();
     }
 
     void Movement()
@@ -32,9 +33,41 @@ public class PlayerMove : MonoBehaviour
         rotation *= Time.deltaTime;
 
 
+        
+
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        Vector2 direction = new Vector2(mousePosition.x - transform.position.x,mousePosition.y - transform.position.y);
+
+
+        transform.up = direction;
+
         transform.Translate(new Vector3(0,translation,0));
-        transform.Rotate(new Vector3(0,0,-rotation));
+
 
     }
+
+
+    void GenerateLevelLimits()
+    {
+        if(transform.position.x < -9.8f)
+        {
+            transform.position = new Vector3(9.8f,transform.position.y,0);
+
+        }else if(transform.position.x > 9.8f)
+        {
+            transform.position = new Vector3(-9.8f,transform.position.y,0);
+
+        }else if(transform.position.y < -5.9f)
+        {
+            transform.position = new Vector3(transform.position.x,5.9f,0);
+        }
+        else if (transform.position.y > 5.9f)
+        {
+            transform.position = new Vector3(transform.position.x, -5.9f, 0);
+        }
+    }
+
 
 }
