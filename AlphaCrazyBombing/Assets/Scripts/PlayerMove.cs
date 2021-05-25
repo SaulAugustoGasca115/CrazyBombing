@@ -7,9 +7,12 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Player Attributes")]
     [SerializeField]
-    public float Speed = 8.0f;
-    public float rotationSpeed = 30.0f;
-
+    private float Speed = 8.0f;
+    private float rotationSpeed = 30.0f;
+    public GameObject laserPrefab;
+    public Vector2 movement;
+    public Rigidbody2D rb;
+    public Transform firePoint;
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +23,31 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Movement();
-        GenerateLevelLimits();
+
+        //GenerateLevelLimits();
+        if (Input.GetMouseButton(0))
+        {
+            //GameObject laserObject = Instantiate(laserPrefab,transform.position + transform.up, Quaternion.identity) as GameObject;
+
+            //laserObject.transform.SetParent(transform);
+
+            Instantiate(laserPrefab, transform.position, transform.rotation);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        OtherMovement();
+        //Movement();
+
+        //if(Input.GetMouseButton(0))
+        //{
+        //    Shoot();
+        //    //Instantiate(laserPrefab, transform.position + new Vector3(0, 1.66f, 0), Quaternion.identity);
+        //    // GameObject obj = Instantiate(laserPrefab, firePoint.position, Quaternion.identity);
+
+        //    //obj.transform.SetParent(transform);
+        //}
     }
 
     void Movement()
@@ -29,8 +55,8 @@ public class PlayerMove : MonoBehaviour
         float translation = Input.GetAxis("Vertical") * Speed;
         float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
 
-        translation *= Time.deltaTime;
-        rotation *= Time.deltaTime;
+        translation *= Time.fixedDeltaTime;
+        rotation *= Time.fixedDeltaTime;
 
 
         
@@ -67,6 +93,40 @@ public class PlayerMove : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, -5.9f, 0);
         }
+    }
+
+
+    public void OtherMovement()
+    {
+        float translationY = Input.GetAxis("Vertical") * Speed;
+        float translationX = Input.GetAxis("Horizontal") * Speed;
+
+        movement.x = Input.GetAxis("Horizontal") * Speed;
+        movement.y = Input.GetAxis("Vertical") * Speed;
+
+        transform.Translate(movement * Time.fixedDeltaTime);
+
+        Vector3 positionMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 lookDirection = positionMouse - transform.position;
+
+        float angle = Mathf.Atan2(lookDirection.y,lookDirection.x) * Mathf.Rad2Deg - 90.0f;
+
+        //transform.Rotate(0,0,angle);
+
+        rb.rotation = angle;
+       
+
+    }
+
+    void Shoot()
+    {
+        GameObject laser = Instantiate(laserPrefab, firePoint.position, firePoint.rotation) as GameObject;
+        laser.GetComponent<Rigidbody2D>();
+
+        //transform.Translate(laser.transform.up * Speed * Time.fixedDeltaTime);
+
+        rb.AddForce(firePoint.up * 20.0f,ForceMode2D.Impulse);
     }
 
 
