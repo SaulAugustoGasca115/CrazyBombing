@@ -14,6 +14,15 @@ public class PlayerMove : MonoBehaviour
     public Rigidbody2D rb;
     public Transform firePoint;
 
+    [Header("Shoot Coolddown")]
+    public float fireRate = 0.15f;
+    public float canFire = 0.0f;
+
+    [Header("Triple Shoot")]
+    public GameObject tripleShootPrefab;
+    public bool activateTripleShoot = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,30 +33,21 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
 
-        //GenerateLevelLimits();
-        if (Input.GetMouseButton(0))
-        {
-            //GameObject laserObject = Instantiate(laserPrefab,transform.position + transform.up, Quaternion.identity) as GameObject;
-
-            //laserObject.transform.SetParent(transform);
-
-            Instantiate(laserPrefab, transform.position, transform.rotation);
-        }
+        
     }
 
     private void FixedUpdate()
     {
-        OtherMovement();
-        //Movement();
+        AffineMovement();
 
-        //if(Input.GetMouseButton(0))
-        //{
-        //    Shoot();
-        //    //Instantiate(laserPrefab, transform.position + new Vector3(0, 1.66f, 0), Quaternion.identity);
-        //    // GameObject obj = Instantiate(laserPrefab, firePoint.position, Quaternion.identity);
+        GenerateLevelLimits();
+        if (Input.GetMouseButton(0))
+        {
 
-        //    //obj.transform.SetParent(transform);
-        //}
+            //Instantiate(laserPrefab, transform.position, transform.rotation);
+            ShootBehaviour();
+        }
+
     }
 
     void Movement()
@@ -96,7 +96,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    public void OtherMovement()
+    public void AffineMovement()
     {
         float translationY = Input.GetAxis("Vertical") * Speed;
         float translationX = Input.GetAxis("Horizontal") * Speed;
@@ -104,30 +104,51 @@ public class PlayerMove : MonoBehaviour
         movement.x = Input.GetAxis("Horizontal") * Speed;
         movement.y = Input.GetAxis("Vertical") * Speed;
 
-        transform.Translate(movement * Time.fixedDeltaTime);
+        
 
         Vector3 positionMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector2 lookDirection = positionMouse - transform.position;
 
-        float angle = Mathf.Atan2(lookDirection.y,lookDirection.x) * Mathf.Rad2Deg - 90.0f;
+        if(Vector2.Distance(positionMouse,transform.position) > 3.0f)
+        {
+            transform.Translate(movement * Time.fixedDeltaTime);
 
-        //transform.Rotate(0,0,angle);
+            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
 
-        rb.rotation = angle;
+            //transform.Rotate(0,0,angle);
+
+            rb.rotation = angle;
+        }
+
+        
        
 
     }
 
-    void Shoot()
+    void ShootBehaviour()
     {
-        GameObject laser = Instantiate(laserPrefab, firePoint.position, firePoint.rotation) as GameObject;
-        laser.GetComponent<Rigidbody2D>();
+        if(Time.time > canFire)
+        {
 
-        //transform.Translate(laser.transform.up * Speed * Time.fixedDeltaTime);
+            if(activateTripleShoot == true)
+            {
+                //triple shoot
+                Instantiate(tripleShootPrefab, transform.position, transform.rotation);
+            }
+            else
+            {
+                //singel shoot
+                Instantiate(laserPrefab, transform.position, transform.rotation);
+            }
 
-        rb.AddForce(firePoint.up * 20.0f,ForceMode2D.Impulse);
+            
+
+            canFire = Time.time + fireRate;
+        }
     }
+
+    
 
 
 }

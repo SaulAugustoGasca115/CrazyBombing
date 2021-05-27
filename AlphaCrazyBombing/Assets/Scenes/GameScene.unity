@@ -401,6 +401,11 @@ MonoBehaviour:
   movement: {x: 0, y: 0}
   rb: {fileID: 1744545785}
   firePoint: {fileID: 1988717100}
+  fireRate: 0.25
+  canFire: 0
+  tripleShootPrefab: {fileID: 6539145287288470558, guid: 143aef5f0063c864c991b630b6799f55,
+    type: 3}
+  activateTripleShoot: 0
 --- !u!50 &1744545785
 Rigidbody2D:
   serializedVersion: 4
@@ -518,7 +523,7 @@ GameObject:
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1988717100
 Transform:
   m_ObjectHideFlags: 0
