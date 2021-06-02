@@ -27,8 +27,14 @@ public class LaseMovement : MonoBehaviour
         transform.Translate(Vector3.up * Speed * Time.deltaTime);
 
 
-        if(transform.position.y > 5.65f)
+        if(transform.position.y > 13.0f || transform.position.y < -13f || transform.position.x > 22.0f || transform.position.x < -22.0f)
         {
+            if(transform.parent != null)
+            {
+                Destroy(this.transform.parent.gameObject);
+            }
+
+
             Destroy(this.gameObject);
         }
 

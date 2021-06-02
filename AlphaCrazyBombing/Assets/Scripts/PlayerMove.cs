@@ -18,9 +18,9 @@ public class PlayerMove : MonoBehaviour
     public float fireRate = 0.15f;
     public float canFire = 0.0f;
 
-    [Header("Triple Shoot")]
+    
     public GameObject tripleShootPrefab;
-    public bool activateTripleShoot = false;
+    public bool canTripleShoot = false;
 
 
     // Start is called before the first frame update
@@ -33,13 +33,6 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
 
-        
-    }
-
-    private void FixedUpdate()
-    {
-        AffineMovement();
-
         GenerateLevelLimits();
         if (Input.GetMouseButton(0))
         {
@@ -47,6 +40,13 @@ public class PlayerMove : MonoBehaviour
             //Instantiate(laserPrefab, transform.position, transform.rotation);
             ShootBehaviour();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        AffineMovement();
+
+        
 
     }
 
@@ -77,21 +77,21 @@ public class PlayerMove : MonoBehaviour
 
     void GenerateLevelLimits()
     {
-        if(transform.position.x < -9.8f)
+        if(transform.position.x < -22.0f)
         {
-            transform.position = new Vector3(9.8f,transform.position.y,0);
+            transform.position = new Vector3(22f,transform.position.y,0);
 
-        }else if(transform.position.x > 9.8f)
+        }else if(transform.position.x > 22.0f)
         {
-            transform.position = new Vector3(-9.8f,transform.position.y,0);
+            transform.position = new Vector3(-22.0f,transform.position.y,0);
 
-        }else if(transform.position.y < -5.9f)
+        }else if(transform.position.y < -13f)
         {
-            transform.position = new Vector3(transform.position.x,5.9f,0);
+            transform.position = new Vector3(transform.position.x,13.0f,0);
         }
-        else if (transform.position.y > 5.9f)
+        else if (transform.position.y > 13f)
         {
-            transform.position = new Vector3(transform.position.x, -5.9f, 0);
+            transform.position = new Vector3(transform.position.x, -13.0f, 0);
         }
     }
 
@@ -137,7 +137,7 @@ public class PlayerMove : MonoBehaviour
         if(Time.time > canFire)
         {
 
-            if(activateTripleShoot == true)
+            if(canTripleShoot == true)
             {
                 //triple shoot
                 Instantiate(tripleShootPrefab, transform.position, transform.rotation);
@@ -154,7 +154,28 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    
+    public void TripleShootPowerupOn()
+    {
+        canTripleShoot = true;
+
+       
+
+        StartCoroutine(TripleShootPowerUpRoutine());
+
+    }
+
+    public IEnumerator TripleShootPowerUpRoutine()
+    {
+        yield return new WaitForSeconds(6.0f);
+
+        canTripleShoot = false;
+    }
+
+
+
+
+  
+
 
 
 }
