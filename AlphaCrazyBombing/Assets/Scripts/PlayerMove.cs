@@ -110,19 +110,25 @@ public class PlayerMove : MonoBehaviour
 
         Vector2 lookDirection = positionMouse - transform.position;
 
-        if(Vector2.Distance(positionMouse,transform.position) > 3.0f)
-        {
-            transform.Translate(movement * Time.fixedDeltaTime);
+        //if(Vector2.Distance(positionMouse,transform.position) > 3.0f)
+        //{
+        //    transform.Translate(movement * Time.fixedDeltaTime);
 
-            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+        //    float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
 
-            //transform.Rotate(0,0,angle);
+        //    //transform.Rotate(0,0,angle);
 
-            rb.rotation = angle;
-        }
+        //    rb.rotation = angle;
+        //}
 
-        
-       
+        transform.Translate(movement * Time.fixedDeltaTime);
+
+        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+
+        //transform.Rotate(0,0,angle);
+
+        rb.rotation = angle;
+
 
     }
 
