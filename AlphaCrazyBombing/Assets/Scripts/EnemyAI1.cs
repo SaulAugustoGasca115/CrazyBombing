@@ -8,6 +8,8 @@ public class EnemyAI1 : MonoBehaviour
     [Header("Enemy1 Attributes")]
     public float Speed = 4.0f;
     public float lifes = 3.0f;
+    public AudioClip enemyDeathSoundFX;
+    public AudioClip playerDeathSoundFX;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,13 @@ public class EnemyAI1 : MonoBehaviour
     void Update()
     {
         Movement();
+
+        if(transform.position.y <= -12.8f)
+        {
+            transform.position = new Vector3(Random.Range(-17.4f,17.4f),13.85f,0);
+        }
+
+
     }
 
     void Movement()
@@ -46,6 +55,12 @@ public class EnemyAI1 : MonoBehaviour
 
 
         }
+
+        if(other.tag == "Player")
+        {
+            Destroy(other.gameObject);
+            AudioSource.PlayClipAtPoint(playerDeathSoundFX,Camera.main.transform.position,1.0f);
+        }
     }
 
     public void LifeCount()
@@ -54,6 +69,8 @@ public class EnemyAI1 : MonoBehaviour
 
         if(lifes < 1)
         {
+            
+            AudioSource.PlayClipAtPoint(enemyDeathSoundFX,Camera.main.transform.position,1.0f);
             Destroy(this.gameObject);
         }
     }

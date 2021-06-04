@@ -22,6 +22,12 @@ public class PlayerMove : MonoBehaviour
     public GameObject tripleShootPrefab;
     public bool canTripleShoot = false;
 
+    //Audio Sources
+    public AudioSource laserSoundFX;
+    public AudioSource powerUp1SoundFX;
+    public AudioSource tripleLaserSoundFX;
+   
+
 
     // Start is called before the first frame update
     void Start()
@@ -141,11 +147,15 @@ public class PlayerMove : MonoBehaviour
             {
                 //triple shoot
                 Instantiate(tripleShootPrefab, transform.position, transform.rotation);
+
+                tripleLaserSoundFX.Play();
+                
             }
             else
             {
                 //singel shoot
                 Instantiate(laserPrefab, transform.position, transform.rotation);
+                laserSoundFX.Play();
             }
 
             
@@ -158,7 +168,7 @@ public class PlayerMove : MonoBehaviour
     {
         canTripleShoot = true;
 
-       
+        powerUp1SoundFX.Play();
 
         StartCoroutine(TripleShootPowerUpRoutine());
 
@@ -173,8 +183,8 @@ public class PlayerMove : MonoBehaviour
 
 
 
+   
 
-  
 
 
 

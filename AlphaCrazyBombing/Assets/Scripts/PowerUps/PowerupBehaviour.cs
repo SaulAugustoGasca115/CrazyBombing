@@ -12,11 +12,15 @@ public class PowerupBehaviour : MonoBehaviour
     public  float yAxisValue = 14.0f;
     float randomNumX;
     float randomNumY;
+    public AudioSource soFx;
 
     float randomNumX2;
     float randomNumY2;
 
     int randomFunction;
+    
+
+    
 
 
     // Start is called before the first frame update
@@ -76,7 +80,7 @@ public class PowerupBehaviour : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-
+       
 
     }
 
@@ -138,21 +142,32 @@ public class PowerupBehaviour : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+
+
+
             PlayerMove player = other.GetComponent<PlayerMove>();
 
             if(player != null)
             {
                 player.TripleShootPowerupOn();
-               
 
-                
+
+                //PlaySound();
+
             }
+
+            
 
             Destroy(this.gameObject);
 
         }
     }
 
-
+    public void PlaySound()
+    {
+        //soundFx.Play();
+        soFx.Play();
+        Debug.Log("LISTENING");
+    }
 
 }
