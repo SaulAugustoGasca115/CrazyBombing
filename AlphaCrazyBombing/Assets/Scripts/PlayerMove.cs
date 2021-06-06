@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerMove : MonoBehaviour
 {
 
@@ -26,13 +26,16 @@ public class PlayerMove : MonoBehaviour
     public AudioSource laserSoundFX;
     public AudioSource powerUp1SoundFX;
     public AudioSource tripleLaserSoundFX;
-   
+
+
+    public int life = 3;
+    public GameObject[] lifeImage;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //lifeImage[0].gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -182,7 +185,64 @@ public class PlayerMove : MonoBehaviour
     }
 
 
+    public void PlayerLifeCount()
+    {
+        //life--;
 
+        //for(int i = life;i<life;i--)
+        //{
+        //    lifeImage[i].gameObject.SetActive(false);
+        //}
+
+        //life--;
+
+        //lifeImage[0].gameObject.SetActive(false);
+
+
+
+        //for(int i = 0;i<lifeImage.Length;i++)
+        //{
+
+        //    if(lifeImage.Length == 0)
+        //    {
+        //        lifeImage[i].gameObject.SetActive(false);
+        //    }
+
+        //    if (lifeImage.Length == 1)
+        //    {
+        //        lifeImage[i].gameObject.SetActive(false);
+        //    }
+
+        //    if (lifeImage.Length == 2)
+        //    {
+        //        lifeImage[i].gameObject.SetActive(false);
+        //    }
+
+        //}
+
+        life--;
+
+        if(life == 2)
+        {
+            lifeImage[2].SetActive(false);
+        }else if(life == 1)
+        {
+            lifeImage[1].SetActive(false);
+
+        }
+        else if(life == 0)
+        {
+            lifeImage[0].SetActive(false);
+            Destroy(this.gameObject);
+        }
+        
+
+        //if (life < 1)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+
+    }
    
 
 

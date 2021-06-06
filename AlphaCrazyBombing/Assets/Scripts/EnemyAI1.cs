@@ -10,11 +10,33 @@ public class EnemyAI1 : MonoBehaviour
     public float lifes = 3.0f;
     public AudioClip enemyDeathSoundFX;
     public AudioClip playerDeathSoundFX;
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //for (int i = 3; i < lifeImage.Length; i--)
+        //{
+
+        //    if (lifeImage.Length == 0)
+        //    {
+        //        lifeImage[i].gameObject.SetActive(false);
+        //    }
+
+        //    if (lifeImage.Length == 1)
+        //    {
+        //        lifeImage[i].gameObject.SetActive(false);
+        //    }
+
+        //    if (lifeImage.Length == 2)
+        //    {
+        //        lifeImage[i].gameObject.SetActive(false);
+        //    }
+
+        //}
+
+       
+
     }
 
     // Update is called once per frame
@@ -58,8 +80,21 @@ public class EnemyAI1 : MonoBehaviour
 
         if(other.tag == "Player")
         {
-            Destroy(other.gameObject);
-            AudioSource.PlayClipAtPoint(playerDeathSoundFX,Camera.main.transform.position,1.0f);
+
+            PlayerMove player = other.GetComponent<PlayerMove>();
+
+            if (player != null)
+            {
+                //Destroy(other.gameObject);
+                player.PlayerLifeCount();
+                AudioSource.PlayClipAtPoint(playerDeathSoundFX, Camera.main.transform.position, 1.0f);
+            }
+
+
+
+            
+
+
         }
     }
 
