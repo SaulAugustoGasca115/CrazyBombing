@@ -112,12 +112,14 @@ public class EnemyAI1 : MonoBehaviour
 
         if(lifes < 1)
         {
-            score += 10;
-            scoreText.text = score.ToString();
+            //score += 10;
+            //scoreText.text = score.ToString();
+
+            uiManager.UpdateScore();
 
             AudioSource.PlayClipAtPoint(enemyDeathSoundFX,Camera.main.transform.position,1.0f);
             Destroy(this.gameObject);
-            uiManager.conditionPanels[0].SetActive(true);
+            //uiManager.conditionPanels[0].SetActive(true);
         }
     }
 

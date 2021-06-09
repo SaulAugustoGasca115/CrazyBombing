@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject[] lifeImages;
     public Text scoreText;
     public int score;
+    
 
     public GameObject[] conditionPanels;
 
@@ -35,9 +37,14 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScore()
     {
-
+        score += 10;
+        scoreText.text = "" + score;
     }
 
+    public void ChangeScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
 
     
 

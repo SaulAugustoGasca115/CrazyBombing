@@ -36,6 +36,8 @@ public class PlayerMove : MonoBehaviour
 
     public UIManager uiManager;
 
+    Vector3 positionMouse;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,9 +97,9 @@ public class PlayerMove : MonoBehaviour
         {
             transform.position = new Vector3(22f,transform.position.y,0);
 
-        }else if(transform.position.x > 22.0f)
+        }else if(transform.position.x > 14.0f)
         {
-            transform.position = new Vector3(-22.0f,transform.position.y,0);
+            transform.position = new Vector3(-14.0f,transform.position.y,0);
 
         }else if(transform.position.y < -13f)
         {
@@ -120,7 +122,12 @@ public class PlayerMove : MonoBehaviour
 
         
 
-        Vector3 positionMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        positionMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
+        //AffineMousePosition();
+
+
 
         Vector2 lookDirection = positionMouse - transform.position;
 
@@ -265,6 +272,15 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         transform.GetComponent<Renderer>().material.color = Color.white;
+    }
+
+
+    public void AffineMousePosition()
+    {
+        if(positionMouse.x >= 14.0f)
+        {
+            positionMouse.Set(-14.0f,positionMouse.y,positionMouse.z);
+        }
     }
 
 
