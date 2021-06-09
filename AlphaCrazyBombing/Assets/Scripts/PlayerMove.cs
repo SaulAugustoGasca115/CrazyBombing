@@ -26,10 +26,12 @@ public class PlayerMove : MonoBehaviour
     public AudioSource laserSoundFX;
     public AudioSource powerUp1SoundFX;
     public AudioSource tripleLaserSoundFX;
+    public AudioClip playerDeathSoundFX;
 
 
     public int life = 3;
     public GameObject[] lifeImage;
+    public GameObject explosionPrefab;
 
 
     // Start is called before the first frame update
@@ -234,6 +236,7 @@ public class PlayerMove : MonoBehaviour
         {
             lifeImage[0].SetActive(false);
             Destroy(this.gameObject);
+            Instantiate(explosionPrefab, transform.position, transform.rotation);
         }
         
 
@@ -243,9 +246,21 @@ public class PlayerMove : MonoBehaviour
         //}
 
     }
-   
 
 
+    public void ChangeColorOn()
+    {
+        transform.GetComponent<Renderer>().material.color = Color.green;
+
+        StartCoroutine(ChangeColorRoutine());
+    }
+
+    public IEnumerator ChangeColorRoutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        transform.GetComponent<Renderer>().material.color = Color.white;
+    }
 
 
 }

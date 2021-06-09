@@ -87,7 +87,8 @@ public class EnemyAI1 : MonoBehaviour
             {
                 //Destroy(other.gameObject);
                 player.PlayerLifeCount();
-                AudioSource.PlayClipAtPoint(playerDeathSoundFX, Camera.main.transform.position, 1.0f);
+                //AudioSource.PlayClipAtPoint(playerDeathSoundFX, Camera.main.transform.position, 1.0f);
+                player.ChangeColorOn();
             }
 
 
