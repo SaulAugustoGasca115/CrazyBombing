@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAI1 : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class EnemyAI1 : MonoBehaviour
     public float lifes = 3.0f;
     public AudioClip enemyDeathSoundFX;
     public AudioClip playerDeathSoundFX;
+
+    [Header("UI Manager")]
+    public Text scoreText;
+    public int score;
+    public UIManager uiManager;
+
    
 
     // Start is called before the first frame update
@@ -35,7 +42,7 @@ public class EnemyAI1 : MonoBehaviour
 
         //}
 
-       
+        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
     }
 
@@ -105,9 +112,12 @@ public class EnemyAI1 : MonoBehaviour
 
         if(lifes < 1)
         {
-            
+            score += 10;
+            scoreText.text = score.ToString();
+
             AudioSource.PlayClipAtPoint(enemyDeathSoundFX,Camera.main.transform.position,1.0f);
             Destroy(this.gameObject);
+            uiManager.conditionPanels[0].SetActive(true);
         }
     }
 

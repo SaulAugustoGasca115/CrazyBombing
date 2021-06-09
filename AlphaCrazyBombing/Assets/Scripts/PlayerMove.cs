@@ -34,10 +34,13 @@ public class PlayerMove : MonoBehaviour
     public GameObject explosionPrefab;
 
 
+    public UIManager uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
         //lifeImage[0].gameObject.SetActive(true);
+        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -236,7 +239,9 @@ public class PlayerMove : MonoBehaviour
         {
             lifeImage[0].SetActive(false);
             Destroy(this.gameObject);
+            AudioSource.PlayClipAtPoint(playerDeathSoundFX, Camera.main.transform.position, 1.0f);
             Instantiate(explosionPrefab, transform.position, transform.rotation);
+            uiManager.conditionPanels[1].SetActive(true);
         }
         
 
