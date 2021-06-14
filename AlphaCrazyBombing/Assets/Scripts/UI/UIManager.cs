@@ -15,21 +15,53 @@ public class UIManager : MonoBehaviour
     public GameObject[] conditionPanels;
     public GameObject instructionsPanel;
 
-    public AudioClip menuSoundFX;
-    public AudioClip instructionsSoundFX;
+    //public AudioClip[] menuSoundFX;
+    //public AudioClip instructionsSoundFX;
+    //public AudioClip[] soundFX;
+    public AudioSource audio1;
+    public AudioSource audio2;
 
     
 
 
     private void Awake()
     {
-        AudioSource.PlayClipAtPoint(menuSoundFX, Camera.main.transform.position, 1.0f);
+
+        audio1 = GetComponent<AudioSource>();
+        
+
+        //audio1.clip = soundFX[0];
+
+        audio1.loop = true;
+
+        audio1.Play();
+
+        //audio2 = GetComponent<AudioSource>();
+
+        //audio2.clip = soundFX[1];
+
+        audio2.loop = true;
+
+        
+
+
+
+        //AudioSource.PlayClipAtPoint(menuSoundFX, Camera.main.transform.position, 1.0f);
         instructionsPanel.SetActive(false);
 
         conditionPanels[0].SetActive(false);
         conditionPanels[1].SetActive(false);
 
+        //audio.loop = true;
+
+        //StartCoroutine(LoopAudio());
         
+    }
+
+    private void Update()
+    {
+        StartCoroutine(LoopAudio());
+        StartCoroutine(LoopAudio2());
     }
 
 
@@ -62,19 +94,52 @@ public class UIManager : MonoBehaviour
 
     public void OpenInstructionsPanel()
     {
-        menuSoundFX.UnloadAudioData();
+        //soundFX[0].UnloadAudioData();
         instructionsPanel.SetActive(true);
-        AudioSource.PlayClipAtPoint(instructionsSoundFX, Camera.main.transform.position, 1.0f);
+        //AudioSource.PlayClipAtPoint(soundFX[1], Camera.main.transform.position, 1.0f);
+
+        //StartCoroutine(LoopAudio2());
+
+        audio1.Stop();
+        audio2.Play();
+
+
     }
 
 
     public void CloseInstructionsPanel()
     {
         instructionsPanel.SetActive(false);
-        instructionsSoundFX.UnloadAudioData();
-        AudioSource.PlayClipAtPoint(menuSoundFX, Camera.main.transform.position, 1.0f);
+        //soundFX[1].UnloadAudioData();
+        //AudioSource.PlayClipAtPoint(soundFX[0], Camera.main.transform.position, 1.0f);
+
+        audio2.Stop();
+        audio1.Play();
+        
     }
 
-    
+    IEnumerator LoopAudio()
+    {
+        audio1 = GetComponent<AudioSource>();
+        float length = audio1.clip.length;
+
+        while (true)
+        {
+            audio1.Play();
+            yield return new WaitForSeconds(length);
+        }
+    }
+
+    IEnumerator LoopAudio2()
+    {
+        audio2 = GetComponent<AudioSource>();
+        float length = audio2.clip.length;
+
+        while (true)
+        {
+            audio1.Play();
+            yield return new WaitForSeconds(length);
+        }
+    }
 
 }
