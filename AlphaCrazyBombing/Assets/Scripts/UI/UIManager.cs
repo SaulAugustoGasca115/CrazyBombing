@@ -13,14 +13,23 @@ public class UIManager : MonoBehaviour
     
 
     public GameObject[] conditionPanels;
+    public GameObject instructionsPanel;
+
+    public AudioClip menuSoundFX;
+    public AudioClip instructionsSoundFX;
+
+    
 
 
     private void Awake()
     {
-
+        AudioSource.PlayClipAtPoint(menuSoundFX, Camera.main.transform.position, 1.0f);
+        instructionsPanel.SetActive(false);
 
         conditionPanels[0].SetActive(false);
         conditionPanels[1].SetActive(false);
+
+        
     }
 
 
@@ -44,6 +53,26 @@ public class UIManager : MonoBehaviour
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    public void ExitApp()
+    {
+        Application.Quit();
+    }
+
+    public void OpenInstructionsPanel()
+    {
+        menuSoundFX.UnloadAudioData();
+        instructionsPanel.SetActive(true);
+        AudioSource.PlayClipAtPoint(instructionsSoundFX, Camera.main.transform.position, 1.0f);
+    }
+
+
+    public void CloseInstructionsPanel()
+    {
+        instructionsPanel.SetActive(false);
+        instructionsSoundFX.UnloadAudioData();
+        AudioSource.PlayClipAtPoint(menuSoundFX, Camera.main.transform.position, 1.0f);
     }
 
     
