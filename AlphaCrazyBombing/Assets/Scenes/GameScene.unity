@@ -1356,6 +1356,9 @@ MonoBehaviour:
   conditionPanels:
   - {fileID: 153019641}
   - {fileID: 1736618016}
+  instructionsPanel: {fileID: 0}
+  audio1: {fileID: 0}
+  audio2: {fileID: 0}
 --- !u!1 &1417638865
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,7 +2401,7 @@ PrefabInstance:
     - target: {fileID: 4053546288706746543, guid: f9d43b8459ed8d54ab6d8dc3f7c1552f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.6
+      value: -18
       objectReference: {fileID: 0}
     - target: {fileID: 4053546288706746543, guid: f9d43b8459ed8d54ab6d8dc3f7c1552f,
         type: 3}

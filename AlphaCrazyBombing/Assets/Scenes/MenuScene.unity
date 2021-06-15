@@ -938,13 +938,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 853346031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d7a7c47c9b1cf4da9999b6bd5b4bf5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0101329b135687f4fb3104ddb91a5ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeImages: []
-  scoreText: {fileID: 0}
-  score: 0
-  conditionPanels: []
   instructionsPanel: {fileID: 1155400023}
   audio1: {fileID: 853346037}
   audio2: {fileID: 853346038}
