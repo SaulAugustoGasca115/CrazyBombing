@@ -133,7 +133,7 @@ public class SpawnManager : MonoBehaviour
         {
             Instantiate(enemiesPrefab, new Vector3(Random.Range(-12.0f, 12.0f), 13.15f, 0), Quaternion.identity);
 
-            yield return new WaitForSeconds(3.5f);
+            yield return new WaitForSeconds(1.5f);
         }
 
 

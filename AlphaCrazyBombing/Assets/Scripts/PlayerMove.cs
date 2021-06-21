@@ -48,13 +48,14 @@ public class PlayerMove : MonoBehaviour
         //lifeImage[0].gameObject.SetActive(true);
         uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
-        //spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
 
-        //if (spawnManager != null)
-        //{
-        //    //spawnManager.StartSpawnRoutines();
-        //    //StartCoroutine(spawnManager.EnemySpawnRoutine());
-        //}
+        if (spawnManager != null)
+        {
+            //spawnManager.StartSpawnRoutines();
+            //StartCoroutine(spawnManager.EnemySpawnRoutine());
+            spawnManager.gameObject.SetActive(true);
+        }
 
     }
 
@@ -259,8 +260,6 @@ public class PlayerMove : MonoBehaviour
         }
         else if(life == 0)
         {
-                if(playerDead == false)
-                {
                     lifeImage[0].SetActive(false);
                     Destroy(this.gameObject);
                     AudioSource.PlayClipAtPoint(playerDeathSoundFX, Camera.main.transform.position, 1.0f);
@@ -270,8 +269,10 @@ public class PlayerMove : MonoBehaviour
                     uiManager.StopTime();
                     //spawnManager.OwnStop();
                     playerDead = true;
-                   // spawnManager.StopCoroutine("EnemySpawnRoutine");
-                }
+                // spawnManager.StopCoroutine("EnemySpawnRoutine");
+                    spawnManager.gameObject.SetActive(false);
+                    //Invoke("TimingStop", 2f);
+                
                 
             
            
@@ -309,5 +310,9 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-
+    void TimingStop()
+    {
+        Time.timeScale = 0;
+        Debug.Log("STOP TIME");
+    }
 }

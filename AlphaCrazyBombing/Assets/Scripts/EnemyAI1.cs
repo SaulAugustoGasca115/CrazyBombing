@@ -53,7 +53,8 @@ public class EnemyAI1 : MonoBehaviour
 
         if(transform.position.y <= -12.8f)
         {
-            transform.position = new Vector3(Random.Range(-12.0f,12.0f),13.85f,0);
+            //transform.position = new Vector3(Random.Range(-12.0f,12.0f),13.85f,0);
+            Destroy(this.gameObject);
         }
 
 
