@@ -13,21 +13,25 @@ public class UIManager : MonoBehaviour
     
 
     public GameObject[] conditionPanels;
-    
+
 
     //public AudioClip[] menuSoundFX;
     //public AudioClip instructionsSoundFX;
     //public AudioClip[] soundFX;
-   
 
-    
+    public float timeStart = 60.0f;
+    public Text txtTime;
+    public float timeSpeed = 5.0f;
+
+    public bool timerActive = false;
 
 
     private void Awake()
     {
 
-        
-        
+        timerActive = true;
+
+        txtTime.text = timeStart.ToString();
 
 
 
@@ -36,6 +40,7 @@ public class UIManager : MonoBehaviour
 
         conditionPanels[0].SetActive(false);
         conditionPanels[1].SetActive(false);
+        conditionPanels[2].SetActive(false);
 
         //audio.loop = true;
 
@@ -45,7 +50,9 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        
+        TimeRemaining();
+
+        PauseGame();
     }
 
 
@@ -72,5 +79,46 @@ public class UIManager : MonoBehaviour
     }
 
     
+    public void TimeRemaining()
+    {
+        if(timerActive)
+        {
+            timeStart -= Time.deltaTime * timeSpeed;
+
+            txtTime.text = Mathf.Round(timeStart).ToString();
+
+            if (timeStart < 1)
+            {
+                txtTime.text = 0.ToString();
+                conditionPanels[0].SetActive(true);
+                conditionPanels[1].SetActive(false);
+            }
+        }
+       
+
+
+    }
+
+
+    public void StopTime()
+    {
+        timerActive = !timerActive;
+    }
+
+
+    public void PauseGame()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            conditionPanels[2].SetActive(true);
+            
+
+        } 
+        
+    }
+
+    
+
 
 }

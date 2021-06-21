@@ -7,7 +7,7 @@ public class EnemyAI1 : MonoBehaviour
 {
 
     [Header("Enemy1 Attributes")]
-    public float Speed = 4.0f;
+    public float Speed = 5.0f;
     public float lifes = 3.0f;
     public AudioClip enemyDeathSoundFX;
     public AudioClip playerDeathSoundFX;
@@ -53,7 +53,7 @@ public class EnemyAI1 : MonoBehaviour
 
         if(transform.position.y <= -12.8f)
         {
-            transform.position = new Vector3(Random.Range(-17.4f,17.4f),13.85f,0);
+            transform.position = new Vector3(Random.Range(-12.0f,12.0f),13.85f,0);
         }
 
 

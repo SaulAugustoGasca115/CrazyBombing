@@ -38,11 +38,24 @@ public class PlayerMove : MonoBehaviour
 
     Vector3 positionMouse;
 
+    public bool playerDead = false;
+
+    private SpawnManager spawnManager;
+
     // Start is called before the first frame update
     void Start()
     {
         //lifeImage[0].gameObject.SetActive(true);
         uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+
+        //spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+
+        //if (spawnManager != null)
+        //{
+        //    //spawnManager.StartSpawnRoutines();
+        //    //StartCoroutine(spawnManager.EnemySpawnRoutine());
+        //}
+
     }
 
     // Update is called once per frame
@@ -237,6 +250,8 @@ public class PlayerMove : MonoBehaviour
         if(life == 2)
         {
             lifeImage[2].SetActive(false);
+            //playerDead = true;
+
         }else if(life == 1)
         {
             lifeImage[1].SetActive(false);
@@ -244,11 +259,22 @@ public class PlayerMove : MonoBehaviour
         }
         else if(life == 0)
         {
-            lifeImage[0].SetActive(false);
-            Destroy(this.gameObject);
-            AudioSource.PlayClipAtPoint(playerDeathSoundFX, Camera.main.transform.position, 1.0f);
-            Instantiate(explosionPrefab, transform.position, transform.rotation);
-            uiManager.conditionPanels[1].SetActive(true);
+                if(playerDead == false)
+                {
+                    lifeImage[0].SetActive(false);
+                    Destroy(this.gameObject);
+                    AudioSource.PlayClipAtPoint(playerDeathSoundFX, Camera.main.transform.position, 1.0f);
+                    Instantiate(explosionPrefab, transform.position, transform.rotation);
+                    uiManager.conditionPanels[1].SetActive(true);
+                    uiManager.conditionPanels[0].SetActive(false);
+                    uiManager.StopTime();
+                    //spawnManager.OwnStop();
+                    playerDead = true;
+                   // spawnManager.StopCoroutine("EnemySpawnRoutine");
+                }
+                
+            
+           
         }
         
 

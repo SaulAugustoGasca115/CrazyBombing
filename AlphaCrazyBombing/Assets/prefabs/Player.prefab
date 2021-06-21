@@ -114,6 +114,7 @@ MonoBehaviour:
   laserSoundFX: {fileID: 1297822933}
   powerUp1SoundFX: {fileID: 1297822934}
   tripleLaserSoundFX: {fileID: 1297822935}
+  playerDeathSoundFX: {fileID: 8300000, guid: 30cfc5f6aa597ba4ab426255216f5871, type: 3}
   life: 3
   lifeImage:
   - {fileID: 0}
@@ -121,6 +122,8 @@ MonoBehaviour:
   - {fileID: 0}
   explosionPrefab: {fileID: 320554731930660577, guid: 540b14a1b6ff3bd4eaca77319fd318df,
     type: 3}
+  uiManager: {fileID: 0}
+  playerDead: 0
 --- !u!50 &2644747856652079500
 Rigidbody2D:
   serializedVersion: 4
