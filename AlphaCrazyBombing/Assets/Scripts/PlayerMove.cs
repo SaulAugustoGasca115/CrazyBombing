@@ -128,13 +128,19 @@ public class PlayerMove : MonoBehaviour
 
     public void AffineMovement()
     {
-        float translationY = Input.GetAxis("Vertical") * Speed;
-        float translationX = Input.GetAxis("Horizontal") * Speed;
+        //float translationY = Input.GetAxis("Vertical") * Speed;
+        //float translationX = Input.GetAxis("Horizontal") * Speed;
 
-        movement.x = Input.GetAxis("Horizontal") * Speed;
-        movement.y = Input.GetAxis("Vertical") * Speed;
+        //movement.x = Input.GetAxis("Horizontal") * Speed;
+        //movement.y = Input.GetAxis("Vertical") * Speed;
 
-        
+        float translation = Input.GetAxis("Vertical") * 15;
+        float rotation = Input.GetAxisRaw("Horizontal") * 100;
+
+        translation *= Time.deltaTime;
+        rotation *= Time.deltaTime;
+
+
 
         positionMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -156,15 +162,21 @@ public class PlayerMove : MonoBehaviour
         //    rb.rotation = angle;
         //}
 
-        transform.Translate(movement * Time.fixedDeltaTime);
+        //transform.Translate(movement * Time.fixedDeltaTime);
 
-        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+        transform.position = OwnMathematics.OwnTranslate(new Coordinates(transform.position), new Coordinates(transform.up), new Coordinates(0,translation,0)).ConvertToVector();
+
+        //float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+
+        float angle = OwnMathematics.GetAngle(new Coordinates(0,lookDirection.y),new Coordinates(0,lookDirection.x)) * Mathf.Rad2Deg - 90.0f;
 
         //transform.Rotate(0,0,angle);
 
         rb.rotation = angle;
 
+        //transform.up = OwnMathematics.Rotate(new Coordinates(transform.up),angle * Mathf.PI / 180,true).ConvertToVector();
 
+        //transform.up = OwnMathematics.Rotate(new Coordinates(transform.up), rotation * Mathf.PI / 180, true).ConvertToVector();
     }
 
     void ShootBehaviour()

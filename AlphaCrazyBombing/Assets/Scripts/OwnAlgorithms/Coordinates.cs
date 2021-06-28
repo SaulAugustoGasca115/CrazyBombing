@@ -9,12 +9,23 @@ public class Coordinates : MonoBehaviour
     public float y;
     public float z;
 
-    public Coordinates(float x,float y,float z)
+
+    public Coordinates(float x, float y)
     {
         this.x = x;
         this.y = y;
         this.z = -1;
     }
+
+
+    public Coordinates(float x,float y,float z)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+
 
 
     public Coordinates(Vector3 vector)
